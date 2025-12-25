@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f5f5">
+    <meta name="description" content="Brilliant CS - Progress over pressure. Stay brilliant.">
+
+    <title>Brilliant CS</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23f5f5f5' width='180' height='180'/><circle cx='90' cy='90' r='50' fill='%238b7355'/><circle cx='90' cy='90' r='40' fill='%23f5f5f5'/><path d='M90,70 L100,85 L85,85 Z' fill='%238b7355'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23f5f5f5' width='180' height='180'/><circle cx='90' cy='90' r='50' fill='%238b7355'/><circle cx='90' cy='90' r='40' fill='%23f5f5f5'/><path d='M90,70 L100,85 L85,85 Z' fill='%238b7355'/></svg>">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- App Container -->
+    <div id="app" class="app">
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="screen auth-screen">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="logo-circle">✨</div>
+                    <h1>Brilliant CS</h1>
+                    <p class="tagline">Progress over pressure. Stay brilliant.</p>
+                </div>
+                <div class="auth-forms">
+                    <!-- Sign In Form -->
+                    <div id="signin-form" class="auth-form active">
+                        <h2>Welcome back</h2>
+                        <form>
+                            <input type="email" id="signin-email" placeholder="Email" required>
+                            <input type="password" id="signin-password" placeholder="Password" required>
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </form>
+                        <p class="form-toggle">Don't have an account? <button type="button" class="link-btn">Sign up</button></p>
+                    </div>
+
+                    <!-- Sign Up Form -->
+                    <div id="signup-form" class="auth-form">
+                        <h2>Join Brilliant CS</h2>
+                        <form>
+                            <input type="text" id="signup-name" placeholder="Your name" required>
+                            <input type="email" id="signup-email" placeholder="Email" required>
+                            <input type="password" id="signup-password" placeholder="Password (min 6 chars)" required>
+                            <input type="password" id="signup-confirm" placeholder="Confirm password" required>
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </form>
+                        <p class="form-toggle">Already have an account? <button type="button" class="link-btn">Sign in</button></p>
+                    </div>
+                </div>
+                <div class="offline-notice">
+                    <p>💡 Works offline — your data syncs when you're back online</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen welcome-screen hidden">
+            <div class="welcome-container">
+                <div class="welcome-hero">
+                    <h1>Welcome to Brilliant CS</h1>
+                    <p>Your calm, focused productivity companion for academic success</p>
+                </div>
+                <div class="welcome-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">📚</div>
+                        <h3>Organize Everything</h3>
+                        <p>Manage subjects, tasks, and schedules in one place</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Stay Focused</h3>
+                        <p>Built-in Pomodoro timer helps you concentrate</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <h3>Track Progress</h3>
+                        <p>Watch your grades and goals come to life</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✨</div>
+                        <h3>Stay Inspired</h3>
+                        <p>Personal vision board keeps you motivated</p>
+                    </div>
+                </div>
+                <button id="welcome-btn" class="btn btn-primary btn-large">Get Started</button>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="main-app hidden">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-content">
+                    <button id="menu-toggle" class="menu-toggle" aria-label="Menu">☰</button>
+                    <h1 class="header-title">Dashboard</h1>
+                    <button id="settings-toggle" class="settings-toggle" aria-label="Settings">⚙️</button>
+                </div>
+            </header>
+
+            <!-- Navigation / Sidebar -->
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <p class="user-name" id="user-name">User</p>
+                        <p class="user-status">Online</p>
+                    </div>
+                </div>
+
+                <ul class="nav-list">
+                    <li><a href="#" data-view="dashboard" class="nav-item active">📊 Dashboard</a></li>
+                    <li><a href="#" data-view="subjects" class="nav-item">📚 Subjects</a></li>
+                    <li><a href="#" data-view="tasks" class="nav-item">✓ Tasks</a></li>
+                    <li><a href="#" data-view="timetable" class="nav-item">📅 Timetable</a></li>
+                    <li><a href="#" data-view="pomodoro" class="nav-item">⏱️ Pomodoro</a></li>
+                    <li><a href="#" data-view="calendar" class="nav-item">📆 Calendar</a></li>
+                    <li><a href="#" data-view="vision" class="nav-item">🎯 Vision Board</a></li>
+                    <li><a href="#" data-view="settings" class="nav-item">⚙️ Settings</a></li>
+                </ul>
+
+                <div class="sidebar-footer">
+                    <button id="logout-btn" class="btn btn-secondary btn-small">Sign Out</button>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard View -->
+                <section id="dashboard-view" class="view active">
+                    <div class="dashboard-grid">
+                        <!-- Today's Focus -->
+                        <div class="card today-card">
+                            <div class="card-header">
+                                <h2>Today</h2>
+                                <span class="date" id="today-date"></span>
+                            </div>
+                            <div class="today-content">
+                                <div id="today-tasks" class="today-tasks">
+                                    <p class="placeholder">No tasks yet. Create one to get started!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timetable Preview -->
+                        <div class="card timetable-preview">
+                            <div class="card-header">
+                                <h2>Schedule</h2>
+                                <a href="#" data-view="timetable" class="view-all-link">View All →</a>
+                            </div>
+                            <div id="timetable-today" class="timetable-preview-content">
+                                <p class="placeholder">No classes scheduled for today</p>
+                            </div>
+                        </div>
+
+                        <!-- Progress Indicator -->
+                        <div class="card progress-card">
+                            <div class="card-header">
+                                <h2>Progress</h2>
+                            </div>
+                            <div class="progress-content">
+                                <div class="progress-stat">
+                                    <div class="progress-number" id="completed-tasks-count">0</div>
+                                    <div class="progress-label">Tasks Completed</div>
+                                </div>
+                                <div class="progress-stat">
+                                    <div class="progress-number" id="focus-hours-count">0</div>
+                                    <div class="progress-label">Focus Hours</div>
+                                </div>
+                                <div class="progress-stat">
+                                    <div class="progress-number" id="avg-grade">--</div>
+                                    <div class="progress-label">GPA</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Motivational Quote -->
+                        <div class="card quote-card">
+                            <div class="card-header">
+                                <h2>Inspiration</h2>
+                            </div>
+                            <div class="quote-content">
+                                <p class="quote-text" id="quote-text">"The expert in anything was once a beginner."</p>
+                                <p class="quote-author" id="quote-author">— Helen Hayes</p>
+                                <button class="btn-icon" id="refresh-quote" title="New quote">🔄</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Subjects View -->
+                <section id="subjects-view" class="view">
+                    <div class="view-header">
+                        <h1>Subjects</h1>
+                        <button id="add-subject-btn" class="btn btn-primary btn-small">+ Add Subject</button>
+                    </div>
+                    <div id="subjects-list" class="subjects-grid">
+                        <p class="placeholder">No subjects yet. Create one to organize your studies!</p>
+                    </div>
+                </section>
+
+                <!-- Tasks View -->
+                <section id="tasks-view" class="view">
+                    <div class="view-header">
+                        <h1>Tasks</h1>
+                        <button id="add-task-btn" class="btn btn-primary btn-small">+ Add Task</button>
+                    </div>
+                    <div class="tasks-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    <div id="tasks-list" class="tasks-list">
+                        <p class="placeholder">No tasks. Create one to get started!</p>
+                    </div>
+                </section>
+
+                <!-- Timetable View -->
+                <section id="timetable-view" class="view">
+                    <div class="view-header">
+                        <h1>Timetable</h1>
+                        <button id="add-class-btn" class="btn btn-primary btn-small">+ Add Class</button>
+                    </div>
+                    <div class="timetable-controls">
+                        <button class="view-btn active" data-view-type="weekly">Weekly</button>
+                        <button class="view-btn" data-view-type="daily">Daily</button>
+                    </div>
+                    <div id="timetable-grid" class="timetable-grid">
+                        <p class="placeholder">No classes scheduled. Add one to get started!</p>
+                    </div>
+                </section>
+
+                <!-- Pomodoro View -->
+                <section id="pomodoro-view" class="view">
+                    <div class="pomodoro-container">
+                        <h1>Focus Time</h1>
+                        <div class="pomodoro-timer">
+                            <div class="timer-display">
+                                <div class="timer-value" id="timer-display">25:00</div>
+                                <div class="timer-mode" id="timer-mode">Work Focus</div>
+                            </div>
+                            <div class="timer-controls">
+                                <button id="timer-start" class="btn btn-primary">Start</button>
+                                <button id="timer-pause" class="btn btn-secondary hidden">Pause</button>
+                                <button id="timer-reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                        <div class="pomodoro-stats">
+                            <p>Sessions Completed: <strong id="sessions-count">0</strong></p>
+                            <p>Total Focus Time: <strong id="total-focus">0h 0m</strong></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calendar View -->
+                <section id="calendar-view" class="view">
+                    <div class="view-header">
+                        <h1>Calendar</h1>
+                    </div>
+                    <div id="calendar-container" class="calendar-container">
+                        <!-- Calendar will be rendered here -->
+                    </div>
+                </section>
+
+                <!-- Vision Board View -->
+                <section id="vision-view" class="view">
+                    <div class="view-header">
+                        <h1>Vision Board</h1>
+                        <button id="add-goal-btn" class="btn btn-primary btn-small">+ Add Goal</button>
+                    </div>
+                    <div id="vision-board" class="vision-board">
+                        <p class="placeholder">Your goals will appear here. Add one to inspire yourself!</p>
+                    </div>
+                </section>
+
+                <!-- Settings View -->
+                <section id="settings-view" class="view">
+                    <div class="view-header">
+                        <h1>Settings</h1>
+                    </div>
+                    <div class="settings-groups">
+                        <!-- Theme Settings -->
+                        <div class="settings-group">
+                            <h3>Appearance</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label for="theme-toggle">Dark Mode</label>
+                                </div>
+                                <input type="checkbox" id="theme-toggle" class="toggle-switch">
+                            </div>
+                        </div>
+
+                        <!-- Data Settings -->
+                        <div class="settings-group">
+                            <h3>Data</h3>
+                            <div class="setting-item">
+                                <button id="export-data-btn" class="btn btn-secondary btn-small">📥 Export Data</button>
+                            </div>
+                            <div class="setting-item">
+                                <button id="reset-data-btn" class="btn btn-danger btn-small">🗑️ Reset All Data</button>
+                            </div>
+                        </div>
+
+                        <!-- About -->
+                        <div class="settings-group">
+                            <h3>About</h3>
+                            <p>Brilliant CS v1.0</p>
+                            <p>Progress over pressure. Stay brilliant.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Modals -->
+        <!-- Add/Edit Subject Modal -->
+        <div id="subject-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="subject-modal-title">Add Subject</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="subject-form" class="modal-form">
+                    <input type="hidden" id="subject-id">
+                    <input type="text" id="subject-name" placeholder="Subject name" required>
+                    <input type="text" id="subject-code" placeholder="Course code (optional)">
+                    <select id="subject-color">
+                        <option value="#8b7355">Beige</option>
+                        <option value="#6b8e99">Blue</option>
+                        <option value="#7a8b6f">Green</option>
+                        <option value="#9b7a8b">Purple</option>
+                        <option value="#a88b7a">Orange</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Save Subject</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add/Edit Task Modal -->
+        <div id="task-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="task-modal-title">Add Task</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="task-form" class="modal-form">
+                    <input type="hidden" id="task-id">
+                    <input type="text" id="task-title" placeholder="Task title" required>
+                    <textarea id="task-description" placeholder="Description (optional)"></textarea>
+                    <select id="task-subject" required>
+                        <option value="">Select a subject</option>
+                    </select>
+                    <input type="date" id="task-duedate" required>
+                    <select id="task-priority">
+                        <option value="low">Low Priority</option>
+                        <option value="medium" selected>Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                    <select id="task-status">
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add/Edit Class Modal -->
+        <div id="class-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="class-modal-title">Add Class</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="class-form" class="modal-form">
+                    <input type="hidden" id="class-id">
+                    <select id="class-subject" required>
+                        <option value="">Select a subject</option>
+                    </select>
+                    <input type="text" id="class-location" placeholder="Location/Room (optional)">
+                    <input type="time" id="class-time" required>
+                    <select id="class-day" required>
+                        <option value="">Select day</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                    </select>
+                    <input type="number" id="class-duration" placeholder="Duration (minutes)" required>
+                    <button type="submit" class="btn btn-primary">Save Class</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Goal Modal -->
+        <div id="goal-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Add Goal</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="goal-form" class="modal-form">
+                    <input type="hidden" id="goal-id">
+                    <input type="text" id="goal-text" placeholder="Your goal or inspiration" required>
+                    <button type="submit" class="btn btn-primary">Save Goal</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils/db.js"></script>
+    <script src="js/utils/offline.js"></script>
+    <script src="js/utils/quotes.js"></script>
+    <script src="js/modules/auth.js"></script>
+    <script src="js/modules/ui.js"></script>
+    <script src="js/modules/subjects.js"></script>
+    <script src="js/modules/tasks.js"></script>
+    <script src="js/modules/timetable.js"></script>
+    <script src="js/modules/pomodoro.js"></script>
+    <script src="js/modules/calendar.js"></script>
+    <script src="js/modules/vision.js"></script>
+    <script src="js/modules/settings.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
